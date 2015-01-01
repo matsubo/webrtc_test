@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>PeerJS</title>
+    <meta name="author" content="Yuki Matsukura">
+  </head>
+  <body>
+
+    <input type="text" id="text" value="hi">
+    <button id="send">Send</button>
+    <br>
+
+    <textarea id="console" rows="10" cols="100"></textarea>
+
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+      google.load("jquery", "1");
+    </script>
+
+
+   <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+
+   <script>
+     var peer = new Peer('pick-an-id', {key: 'nhcbx2i9aqe3766r'}); 
+
+     var conn = peer.connect('pick-an-id');
+
+     console.info(conn);
+
+     $('#send').click(function(){
+       console.info($('#text').val());
+       conn.send($('#text').val());
+     });
+
+
+    peer.on('connection', function(conn) {
+      console.info(conn);
+      conn.on('data', function(data){
+        // Will print 'hi!'
+        $('#console').append(data + "\n");
+        console.info(data);
+        });
+    });
+
+
+
+   </script>
+
+  </body>
+</html>
+

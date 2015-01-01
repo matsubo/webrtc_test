@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sample1-1</title>
+    <meta charset="utf-8">
+  </head>
+
+<body>
+  Open receiver first.
+  <div id="receive_message"></div>
+</body>
+
+
+
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script>
+    google.load("jquery", "1");
+  </script>
+
+  <script src="http://cdn.peerjs.com/0/peer.min.js"></script>
+  <script>
+    $(function(){
+      var peer = new Peer('ReceiverID', {key: 'nhcbx2i9aqe3766r'});
+      peer.on('connection', function(conn) { // listen
+        conn.on('data', function(data){
+          $('#receive_message').append(data + "<br>");
+        });
+      });
+    });
+</script>
+
+</html>

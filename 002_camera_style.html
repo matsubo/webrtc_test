@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+ <head>
+  <title>Rotate Camera</title>
+  <style type="text/css">
+   #rotateVideo
+   {
+    position: absolute;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:linear;
+    -webkit-animation-name:rectRotate;     
+   }
+ 
+   @-webkit-keyframes rectRotate
+   {
+    0%{-webkit-transform:rotate(0deg);}
+    99%,100%{-webkit-transform:rotate(360deg);}
+   }
+  </style>
+ </head>
+ <body>
+   <video id="rotateVideo" width="400" height="300" autoplay="1" ></video>
+ 
+   <script type="text/javascript">
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+ 
+    var video = document.getElementById('rotateVideo');
+    navigator.getUserMedia({video: true, audio: false}, 
+     function(stream) { // for success case
+      console.log(stream);
+      video.src = window.URL.createObjectURL(stream);
+     },
+     function(err) { // for error case
+      console.log(err);
+     }
+    );
+   </script>
+ </body>
+</html>
+
+
+

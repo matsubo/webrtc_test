@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sample1-2</title>
+    <meta charset="utf-8">
+  </head>
+<body>
+
+  Open receiver first.
+
+  <form action="#">
+    <input type="text" id="text">
+    <input type="submit" id="send" value="send">
+  </form>
+
+</body>
+
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script>
+    google.load("jquery", "1");
+  </script>
+
+
+
+  <script src="http://cdn.peerjs.com/0/peer.min.js"></script>
+  <script>
+
+    $(function(){
+      $('form').submit(function(){
+          return false;
+       });
+
+
+      var peer = new Peer('SenderID', {key: 'nhcbx2i9aqe3766r'});
+      var conn = peer.connect('ReceiverID');
+
+      conn.on('open', function(){
+        $('#send').click(function(){
+          conn.send($('#text').val());
+          $('#text').val('');
+        }); 
+      });
+    });
+
+</script>
+
+</html>

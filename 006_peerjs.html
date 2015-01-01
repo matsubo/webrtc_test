@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>PeerJS</title>
+    <meta name="author" content="Yuki Matsukura">
+  </head>
+  <body>
+
+      connecter_id: <input type="text" id="text" value="hi">
+      <button id="start">start</button>
+      <br>
+
+
+      <input type="text" id="text" value="hi">
+      <button id="start">start</button>
+      <br>
+
+      <textarea id="console" rows="10" cols="100"></textarea>
+
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+      google.load("jquery", "1");
+    </script>
+
+
+   <script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+
+   <script>
+     $(function() {
+
+      sender_id = 'sender_id:' + Math.round(Math.random() * 1000);
+
+      $('#console').append(sender_id);
+
+      peer = new Peer(sender_id,
+       {
+         key: 'nhcbx2i9aqe3766r',
+         // Use a TURN server for more network support
+         config: {'iceServers': [
+           { url: 'stun:stun.l.google.com:19302' }
+         ]}
+       } /* Sample servers, please use appropriate ones */
+      );
+
+
+      peer.on('error', function(data) {
+        console.log('error', data);
+      });
+
+
+      var conn = null;
+      $('#start').click(function(){
+
+
+        peer = new Peer('testtesthoge',
+         {
+           key: 'nhcbx2i9aqe3766r',
+           // Use a TURN server for more network support
+           config: {'iceServers': [
+             { url: 'stun:stun.l.google.com:19302' }
+           ]}
+         } /* Sample servers, please use appropriate ones */
+        );
+
+
+
+        console.info('connecting...');
+
+        conn = peer.connect('testhoge');
+
+        console.info('connected');
+
+        console.info(conn);
+
+        // Receive messages
+        // callback if I'm initiater
+        conn.on('data', function(data) {
+          console.log('Received', data);
+        });
+        // Send messages
+        conn.send('Hello!');
+
+
+
+      });
+
+        // callback if I'm receiver
+        peer.on('connection', function(_conn) {
+          console.info('connection');
+          console.info(_conn);
+          // Receive messages
+          _conn.on('data', function(data) {
+            console.log('Received', data);
+           });
+    });
+
+
+     });
+   </script>
+
+  </body>
+</html>
+

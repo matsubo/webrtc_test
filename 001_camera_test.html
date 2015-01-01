@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Self Camera</title>
+  </head>
+  <body>
+
+    <video id="myVideo1" style="-webkit-transform: scaleX(0.5);" width="400" height="300" autoplay="1" ></video>
+    <video id="myVideo2" style="-webkit-transform: scaleY(-1);" width="400" height="300" autoplay="1" ></video>
+    <video id="myVideo3" style="-webkit-filter: sepia(80%);" width="400" height="300" autoplay="1" ></video>
+
+
+    <script type="text/javascript">
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+      window.URL = window.URL || window.webkitURL;
+
+      var video1 = document.getElementById('myVideo1');
+      var video2 = document.getElementById('myVideo2');
+      var video3 = document.getElementById('myVideo3');
+      var localStream = null;
+      navigator.getUserMedia({video: true, audio: false}, 
+          function(stream) { // for success case
+          console.log(stream);
+          video1.src = window.URL.createObjectURL(stream);
+          video2.src = window.URL.createObjectURL(stream);
+          video3.src = window.URL.createObjectURL(stream);
+          },
+          function(err) { // for error case
+          console.log(err);
+          }
+          );
+      </script>
+    </body>
